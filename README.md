@@ -23,7 +23,7 @@ Heroicon::make('Icon');
 
 To use or customize icon click on `Edit` button and just edit svg code if selected icon:
 
-<img src="screenshots/custom_icon.gif" width="200">
+<img src="screenshots/custom_icon.gif" width="800">
 
 ## Support:
 
