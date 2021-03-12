@@ -1,0 +1,39 @@
+{
+    "name": "alexazartsev/heroicon",
+    "description": "A Laravel Nova field for managing icons.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "heroicons",
+        "svg"
+    ],
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Alex Azartsev",
+        "email": "alex.azarsecond@gmail.com",
+        "homepage": "https://github.com/AlexAzartsev/heroicon",
+        "role": "Developer"
+      }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AlexAzartsev\\Heroicon\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AlexAzartsev\\Heroicon\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
