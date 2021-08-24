@@ -25,6 +25,16 @@ To use custom or customize existing icon click on `Edit` button and just edit sv
 
 <img src="screenshots/custom_icon.gif" width="800">
 
+## Methods:
+
+To disable the edition of the icon:
+
+```php
+use AlexAzartsev\Heroicon\Heroicon;
+
+Heroicon::make('Icon')->disableEdition();
+```
+
 ## Support:
 
 alex.azarsecond@gmail.com
