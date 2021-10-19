@@ -1,5 +1,6 @@
-Nova.booting((Vue, router, store) => {
-  Vue.component('index-heroicon', require('./components/IndexField'))
-  Vue.component('detail-heroicon', require('./components/DetailField'))
-  Vue.component('form-heroicon', require('./components/FormField'))
-})
+/* eslint-disable global-require */
+Nova.booting((Vue) => {
+  Vue.component('index-heroicon', require('./components/IndexField.vue'));
+  Vue.component('detail-heroicon', require('./components/DetailField.vue'));
+  Vue.component('form-heroicon', require('./components/FormField.vue'));
+});

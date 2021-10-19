@@ -13,28 +13,22 @@ module.exports = {
   rules: {
     'no-shadow': ['error', { allow: ['state'] }],
     'no-param-reassign': ['error', { ignorePropertyModificationsFor: ['state'] }],
-    'import/extensions': ['error', 'ignorePackages', {
-      js: 'never',
-      mjs: 'never',
-      jsx: 'never',
-      vue: 'never',
-    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        mjs: 'never',
+        jsx: 'never',
+        vue: 'never',
+      },
+    ],
     'vue/no-v-model-argument': ['off'],
   },
-  settings: {
-    'import/resolver': {
-      alias: {
-        map: [
-          ['@', './resources/js'],
-          ['@modules', './app/Modules'],
-          ['@theme', './resources/themes/default'],
-          ['@icons', './resources/img/icons'],
-        ],
-        extensions: ['.ts', '.js', '.jsx', '.json', '.vue'],
-      },
-    },
-  },
+  settings: {},
   globals: {
-    route: 'readonly',
+    Nova: 'readonly',
+    router: 'readonly',
   },
+  ignorePatterns: ['resources/js/icons.js', 'node_modules', 'dist'],
 };
