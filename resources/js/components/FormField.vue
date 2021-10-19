@@ -26,7 +26,11 @@
           <button class="btn btn-default btn-primary mb-3 ml-3" @click.prevent="toggleModal">
             {{ openModalText }}
           </button>
-          <button class="btn btn-default btn-primary mb-3 ml-3" @click.prevent="toggleEditor">
+          <button
+            v-if="field.editor"
+            class="btn btn-default btn-primary mb-3 ml-3"
+            @click.prevent="toggleEditor"
+          >
             {{ editButtonText }}
           </button>
         </div>
