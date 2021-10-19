@@ -6,17 +6,18 @@ use Laravel\Nova\Fields\Field;
 
 class Heroicon extends Field
 {
-    /**
-     * The field's component.
-     *
-     * @var string
-     */
     public $component = 'heroicon';
-    public $editor = true;
+
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    {
+        parent::__construct($name, $attribute, $resolveCallback);
+        $this->withMeta([
+            'editor' => true
+        ]);
+    }
 
     public function disableEditor()
     {
-        $this->editor = false;
-        return $this->withMeta(['editor' => $this->editor]);
+        return $this->withMeta(['editor' => false]);
     }
 }
