@@ -14,7 +14,7 @@ class Heroicon extends Field
     public $component = 'heroicon';
     public $editor = true;
 
-    public function disableEditior()
+    public function disableEditor()
     {
         $this->editor = false;
         return $this->withMeta(['editor' => $this->editor]);
