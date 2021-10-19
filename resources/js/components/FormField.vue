@@ -72,12 +72,7 @@
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
                 <select id="type" class="w-full form-control form-select" v-model="filter.type">
-                  <option
-                    v-for="(opt, index) in iconOptions"
-                    :selected="index === 0"
-                    :value="opt.value"
-                    :key="opt.value"
-                  >
+                  <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
                     {{ opt.label }} - {{ index }}
                   </option>
                 </select>
@@ -211,6 +206,7 @@ export default {
     this.$once('hook:destroyed', () => {
       document.removeEventListener('keydown', escapeHandler);
     });
+    this.filter.type = this.iconOptions[0].value;
   },
 };
 </script>
