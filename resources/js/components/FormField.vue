@@ -71,9 +71,14 @@
           <div class="px-8 py-4 border-b">
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
-                <select id="type" class="w-full form-control form-select" v-model="filter.type">
+                <select
+                  id="type"
+                  class="w-full form-control form-select"
+                  v-model="filter.type"
+                  :disabled="disableOptions"
+                >
                   <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
-                    {{ opt.label }} - {{ index }}
+                    {{ opt.label }}
                   </option>
                 </select>
               </div>
@@ -194,6 +199,9 @@ export default {
         return [{ value: '', label: 'All' }, ...this.field.icons];
       }
       return this.field.icons;
+    },
+    disableOptions() {
+      return this.field.icons.length === 1;
     },
   },
   created() {
