@@ -72,9 +72,9 @@
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
                 <select id="type" class="w-full form-control form-select" v-model="filter.type">
-                  <option value="" selected>All</option>
-                  <option value="outline">Outline</option>
-                  <option value="solid">Solid</option>
+                  <option v-for="opt in iconOptions" :value="opt" :key="opt.value">
+                    {{ opt.label }}
+                  </option>
                 </select>
               </div>
               <div class="w-2/3 px-4">
@@ -188,6 +188,12 @@ export default {
         return 'Change icon';
       }
       return 'Add icon';
+    },
+    iconOptions() {
+      if (this.field.icons.length > 1) {
+        return [{ value: '', label: 'All' }, ...this.field.icons];
+      }
+      return this.field.icons;
     },
   },
   created() {

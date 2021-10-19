@@ -12,12 +12,34 @@ class Heroicon extends Field
     {
         parent::__construct($name, $attribute, $resolveCallback);
         $this->withMeta([
-            'editor' => true
+            'editor' => true,
+            'icons'  => [
+                ['value' => 'solid', 'label' => 'Solid'],
+                ['value' => 'outline', 'label' => 'Outline'],
+            ]
         ]);
     }
 
     public function disableEditor()
     {
         return $this->withMeta(['editor' => false]);
+    }
+
+    public function onlySolid()
+    {
+        return $this->withMeta([
+            'icons' => [
+                ['value' => 'solid', 'label' => 'Solid'],
+            ]
+        ]);
+    }
+
+    public function onlyOutline()
+    {
+        return $this->withMeta([
+            'icons' => [
+                ['value' => 'outline', 'label' => 'Outline'],
+            ]
+        ]);
     }
 }
