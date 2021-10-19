@@ -78,7 +78,7 @@
                     :value="opt.value"
                     :key="opt.value"
                   >
-                    {{ opt.label }}
+                    {{ opt.label }} - {{ index }}
                   </option>
                 </select>
               </div>
