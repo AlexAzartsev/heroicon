@@ -72,7 +72,12 @@
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
                 <select id="type" class="w-full form-control form-select" v-model="filter.type">
-                  <option v-for="opt in iconOptions" :value="opt" :key="opt.value">
+                  <option
+                    v-for="(index, opt) in iconOptions"
+                    :selected="index === 0"
+                    :value="opt.value"
+                    :key="opt.value"
+                  >
                     {{ opt.label }}
                   </option>
                 </select>
