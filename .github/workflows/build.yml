@@ -1,11 +1,9 @@
 name: Lint checks
 on:
   push:
-    branches: [ 'github-actions' ]
+    branches: [ 'master' ]
   pull_request:
     branches: [ 'master' ]
-  workflow_dispatch:
-    branches: [ 'github-actions' ]
 jobs:
   build:
     runs-on: ubuntu-latest
