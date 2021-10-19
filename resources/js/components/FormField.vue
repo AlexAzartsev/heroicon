@@ -167,13 +167,13 @@ export default {
   },
   computed: {
     filteredIcons() {
-      let filteredIcons;
+      let filteredIcons = this.icons;
       if (this.filter.type) {
-        filteredIcons = this.icons.filter((icon) => icon.type === this.filter.type);
+        filteredIcons = filteredIcons.filter((icon) => icon.type === this.filter.type);
       }
 
       if (this.filter.search) {
-        filteredIcons = this.icons.filter((icon) => icon.name.includes(this.filter.search));
+        filteredIcons = filteredIcons.filter((icon) => icon.name.includes(this.filter.search));
       }
       return filteredIcons;
     },
