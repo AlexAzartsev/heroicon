@@ -73,7 +73,7 @@
               <div class="w-1/3 px-4">
                 <select id="type" class="w-full form-control form-select" v-model="filter.type">
                   <option
-                    v-for="(index, opt) in iconOptions"
+                    v-for="(opt, index) in iconOptions"
                     :selected="index === 0"
                     :value="opt.value"
                     :key="opt.value"
