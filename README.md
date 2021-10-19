@@ -25,6 +25,25 @@ To use custom or customize existing icon click on `Edit` button and just edit sv
 
 <img src="screenshots/custom_icon.gif" width="800">
 
+## Configuration:
+
+To disable editor of the icon:
+
+```php
+use AlexAzartsev\Heroicon\Heroicon;
+
+Heroicon::make('Icon')->disableEditor();
+```
+
+To allow only one type of icons (solid or outline), use one of these methods:
+
+```php
+use AlexAzartsev\Heroicon\Heroicon;
+
+Heroicon::make('Icon')->onlySolid();
+Heroicon::make('Icon')->onlyOutline();
+```
+
 ## Support:
 
 alex.azarsecond@gmail.com

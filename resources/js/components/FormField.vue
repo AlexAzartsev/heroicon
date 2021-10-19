@@ -26,7 +26,11 @@
           <button class="btn btn-default btn-primary mb-3 ml-3" @click.prevent="toggleModal">
             {{ openModalText }}
           </button>
-          <button class="btn btn-default btn-primary mb-3 ml-3" @click.prevent="toggleEditor">
+          <button
+            v-if="field.editor"
+            class="btn btn-default btn-primary mb-3 ml-3"
+            @click.prevent="toggleEditor"
+          >
             {{ editButtonText }}
           </button>
         </div>
@@ -67,10 +71,15 @@
           <div class="px-8 py-4 border-b">
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
-                <select id="type" class="w-full form-control form-select" v-model="filter.type">
-                  <option value="" selected>All</option>
-                  <option value="outline">Outline</option>
-                  <option value="solid">Solid</option>
+                <select
+                  id="type"
+                  class="w-full form-control form-select"
+                  v-model="filter.type"
+                  :disabled="disableOptions"
+                >
+                  <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
+                    {{ opt.label }}
+                  </option>
                 </select>
               </div>
               <div class="w-2/3 px-4">
@@ -163,13 +172,13 @@ export default {
   },
   computed: {
     filteredIcons() {
-      let filteredIcons;
+      let filteredIcons = this.icons;
       if (this.filter.type) {
-        filteredIcons = this.icons.filter((icon) => icon.type === this.filter.type);
+        filteredIcons = filteredIcons.filter((icon) => icon.type === this.filter.type);
       }
 
       if (this.filter.search) {
-        filteredIcons = this.icons.filter((icon) => icon.name.includes(this.filter.search));
+        filteredIcons = filteredIcons.filter((icon) => icon.name.includes(this.filter.search));
       }
       return filteredIcons;
     },
@@ -185,6 +194,15 @@ export default {
       }
       return 'Add icon';
     },
+    iconOptions() {
+      if (this.field.icons.length > 1) {
+        return [{ value: '', label: 'All' }, ...this.field.icons];
+      }
+      return this.field.icons;
+    },
+    disableOptions() {
+      return this.field.icons.length === 1;
+    },
   },
   created() {
     const escapeHandler = (e) => {
@@ -196,6 +214,7 @@ export default {
     this.$once('hook:destroyed', () => {
       document.removeEventListener('keydown', escapeHandler);
     });
+    this.filter.type = this.iconOptions[0].value;
   },
 };
 </script>
