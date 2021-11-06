@@ -134,7 +134,7 @@ export default {
   props: ['resourceName', 'resourceId', 'field'],
   data() {
     return {
-      icons,
+      defaultIcons: icons,
       modalOpened: false,
       editorOpened: false,
       value: '',
@@ -171,6 +171,15 @@ export default {
     },
   },
   computed: {
+    icons() {
+      let allIcons = this.defaultIcons;
+      this.field.icons.forEach((iconSet) => {
+        if (typeof iconSet.icons !== 'undefined') {
+          allIcons = [...allIcons, ...iconSet.icons];
+        }
+      });
+      return allIcons;
+    },
     filteredIcons() {
       let filteredIcons = this.icons;
       if (this.filter.type) {
