@@ -7,18 +7,22 @@ use Laravel\Nova\Fields\Field;
 class Heroicon extends Field
 {
     public $component = 'heroicon';
-    public array $icons = [
+    public array $icons = [];
+    protected static array $defaultIcons = [
         ['value' => 'solid', 'label' => 'Solid'],
         ['value' => 'outline', 'label' => 'Outline'],
     ];
 
+    protected static array $defaultIconSets = ['solid', 'outline'];
+    protected static bool $defaultEditorEnabled = true;
+
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
-        $this->withMeta([
-            'editor' => true,
-            'icons'  => $this->icons
-        ]);
+        $this->icons = self::$defaultIcons;
+        $this->withMeta(['editor' => self::$defaultEditorEnabled]);
+        $this->only(self::$defaultIconSets);
+
     }
 
     public function disableEditor()
@@ -28,20 +32,13 @@ class Heroicon extends Field
 
     public function onlySolid()
     {
-        return $this->withMeta([
-            'icons' => [
-                ['value' => 'solid', 'label' => 'Solid'],
-            ]
-        ]);
+        return $this->only(['solid']);
+
     }
 
     public function onlyOutline()
     {
-        return $this->withMeta([
-            'icons' => [
-                ['value' => 'outline', 'label' => 'Outline'],
-            ]
-        ]);
+        return $this->only(['outline']);
     }
 
     public function registerIconSet(string $key, string $label, string $path)
@@ -57,8 +54,27 @@ class Heroicon extends Field
         ]);
     }
 
+    public static function registerGlobalIconSet(string $key, string $label, string $path): void
+    {
+        self::$defaultIcons[] = [
+            'value' => $key,
+            'label' => $label,
+            'icons' => self::prepareIcons($key, $path)
+        ];
+    }
 
-    protected function prepareIcons($key, $path)
+    public static function defaultIconSets(array $sets): void
+    {
+        self::$defaultIconSets = $sets;
+    }
+
+    public static function defaultEditorEnable(bool $enabled): void
+    {
+        self::$defaultEditorEnabled = $enabled;
+    }
+
+
+    protected static function prepareIcons($key, $path): array
     {
         $icons = [];
         $files = scandir($path);
@@ -74,5 +90,22 @@ class Heroicon extends Field
 
         return $icons;
 
+    }
+
+    public function only(array $sets)
+    {
+        $icons = $this->icons;
+        $filteredIcons = [];
+        foreach ($sets as $set) {
+            foreach ($icons as $icon) {
+                if ($icon['value'] === $set) {
+                    $filteredIcons[] = $icon;
+                }
+            }
+        }
+
+        return $this->withMeta([
+            'icons' => $filteredIcons
+        ]);
     }
 }
