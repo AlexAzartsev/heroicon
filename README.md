@@ -1,7 +1,7 @@
 # Heroicon Nova Field
 
 A Laravel Nova Field for managing icons. [Heroicons](https://heroicons.com/) used by default.
-Custom sets of icons can be registered and used with or istead heroicons, each icon can be changed via editor. Icon saved as svg html tag into db.
+Custom sets of icons can be registered and used with or instead heroicons, each icon can be changed via editor. Icon saved as svg html tag into db.
 
 ## Installation:
 
