@@ -7,16 +7,16 @@
             <span v-html="value"> </span>
             <span class="close-icon absolute top-0 right-0 cursor-pointer invisible" @click="clear">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </span>
@@ -27,9 +27,9 @@
             {{ openModalText }}
           </button>
           <button
-            v-if="field.editor"
-            class="btn btn-default btn-primary mb-3 ml-3"
-            @click.prevent="toggleEditor"
+              v-if="field.editor"
+              class="btn btn-default btn-primary mb-3 ml-3"
+              @click.prevent="toggleEditor"
           >
             {{ editButtonText }}
           </button>
@@ -37,13 +37,13 @@
       </div>
       <transition name="fade">
         <textarea
-          v-show="editorOpened"
-          :id="field.name"
-          type="text"
-          class="w-full form-control form-input form-input-bordered h-36"
-          :class="errorClasses"
-          :placeholder="field.name"
-          v-model="value"
+            v-show="editorOpened"
+            :id="field.name"
+            type="text"
+            class="w-full form-control form-input form-input-bordered h-36"
+            :class="errorClasses"
+            :placeholder="field.name"
+            v-model="value"
         />
       </transition>
 
@@ -53,17 +53,17 @@
             <heading :level="2" class="mb-0 px-10">{{ __('Select Icon') }}</heading>
             <a href="#" class="heroicon-close" @click.prevent="closeModal">
               <svg
-                class="w-10 h-10"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                  class="w-10 h-10"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </a>
@@ -72,10 +72,10 @@
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
                 <select
-                  id="type"
-                  class="w-full form-control form-select"
-                  v-model="filter.type"
-                  :disabled="disableOptions"
+                    id="type"
+                    class="w-full form-control form-select"
+                    v-model="filter.type"
+                    :disabled="disableOptions"
                 >
                   <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
                     {{ opt.label }}
@@ -84,12 +84,12 @@
               </div>
               <div class="w-2/3 px-4">
                 <input
-                  type="text"
-                  id="search"
-                  class="w-full form-control form-input form-input-bordered"
-                  placeholder="Search icons"
-                  v-model="filter.search"
-                  @keypress.enter.prevent
+                    type="text"
+                    id="search"
+                    class="w-full form-control form-input form-input-bordered"
+                    placeholder="Search icons"
+                    v-model="filter.search"
+                    @keypress.enter.prevent
                 />
               </div>
             </div>
@@ -97,9 +97,9 @@
           <div class="px-8 py-6 heroicon-inner">
             <div class="flex flex-wrap items-stretch -mx-2">
               <div
-                v-for="icon in filteredIcons"
-                :key="`${icon.type}_${icon.name}`"
-                class="
+                  v-for="icon in filteredIcons"
+                  :key="`${icon.type}_${icon.name}`"
+                  class="
                   flex flex-col
                   items-center
                   justify-center
@@ -110,8 +110,8 @@
                   mb-4
                   min-h-90px
                 "
-                style="outline: 1px solid #e0e0e0; outline-offset: -0.5rem"
-                @click="saveIcon(icon)"
+                  style="outline: 1px solid #e0e0e0; outline-offset: -0.5rem"
+                  @click="saveIcon(icon)"
               >
                 <div v-html="icon.content" class="w-12 h-12"></div>
                 <div>{{ icon.name }}</div>
@@ -134,7 +134,7 @@ export default {
   props: ['resourceName', 'resourceId', 'field'],
   data() {
     return {
-      icons,
+      defaultIcons: icons,
       modalOpened: false,
       editorOpened: false,
       value: '',
@@ -171,6 +171,17 @@ export default {
     },
   },
   computed: {
+    icons() {
+      let allIcons = this.defaultIcons;
+      const enabledTypes = [];
+      this.field.icons.forEach((iconSet) => {
+        enabledTypes.push(iconSet.value);
+        if (typeof iconSet.icons !== 'undefined') {
+          allIcons = [...allIcons, ...iconSet.icons];
+        }
+      });
+      return allIcons.filter((icon) => enabledTypes.includes(icon.type));
+    },
     filteredIcons() {
       let filteredIcons = this.icons;
       if (this.filter.type) {
