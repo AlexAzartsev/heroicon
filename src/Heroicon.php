@@ -30,6 +30,11 @@ class Heroicon extends Field
         return $this->withMeta(['editor' => false]);
     }
 
+    public function enableEditor()
+    {
+        return $this->withMeta(['editor' => true]);
+    }
+
     public function onlySolid()
     {
         return $this->only(['solid']);

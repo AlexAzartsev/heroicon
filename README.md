@@ -62,12 +62,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 ### Local configuration:
 
-To disable svg editor of the icon:
+To disable or enable svg editor of the icon:
 
 ```php
 use AlexAzartsev\Heroicon\Heroicon;
 
 Heroicon::make('Icon')->disableEditor();
+Heroicon::make('Icon')->enableEditor();
 ```
 
 To register custom set of icons (icons should be located directly in specified folder in .svg format):
