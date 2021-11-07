@@ -59,7 +59,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     }
 ```
 
-###Local configuration:
+### Local configuration:
 
 To disable svg editor of the icon:
 
