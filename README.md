@@ -48,6 +48,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
         
         // to register set of icons globally, just specify folder with svg icons like this:
+        // (icons should be located directly in specified folder in .svg format)
         // 'custom' icon set will be available for every Heroicon in your app
         Heroicon::registerGlobalIconSet('custom', 'Custom Icons', resource_path('img/icons'));
         // to pick default icon sets that will be available on field all over app use this:
@@ -69,7 +70,7 @@ use AlexAzartsev\Heroicon\Heroicon;
 Heroicon::make('Icon')->disableEditor();
 ```
 
-To register custom set of icon (icons whould be in .svg format located directly in specified folder):
+To register custom set of icons (icons should be located directly in specified folder in .svg format):
 
 ```php
 use AlexAzartsev\Heroicon\Heroicon;
