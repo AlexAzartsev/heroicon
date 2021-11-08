@@ -8,12 +8,16 @@ class Heroicon extends Field
 {
     public $component = 'heroicon';
     public array $icons = [];
+
+    protected static array $supportedSets = [
+        ['value' => 'solid', 'label' => 'Heroicons Solid', 'path' => '../resources/icons/heroicons/solid'],
+        ['value' => 'outline', 'label' => 'Heroicons Outline', 'path' => '../resources/icons/heroicons/outline'],
+        ['value' => 'fa-brands', 'label' => 'Fontawesome brands', 'path' => '../resources/icons/fa/free/brands'],
+        ['value' => 'fa-regular', 'label' => 'Fontawesome regular', 'path' => '../resources/icons/fa/free/regular'],
+        ['value' => 'fa-solid', 'label' => 'Fontawesome solid', 'path' => '../resources/icons/fa/free/solid'],
+    ];
+
     protected static array $defaultIcons = [
-        ['value' => 'solid', 'label' => 'Solid'],
-        ['value' => 'outline', 'label' => 'Outline'],
-        ['value' => 'fa-brands', 'label' => 'Fontawesome brands'],
-        ['value' => 'fa-regular', 'label' => 'Fontawesome regular'],
-        ['value' => 'fa-solid', 'label' => 'Fontawesome solid'],
     ];
 
     protected static array $defaultIconSets = ['solid', 'outline'];
@@ -22,10 +26,25 @@ class Heroicon extends Field
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
+        $this->registerDefaultIcons();
         $this->icons = self::$defaultIcons;
         $this->withMeta(['editor' => self::$defaultEditorEnabled]);
         $this->only(self::$defaultIconSets);
 
+    }
+
+    public function registerDefaultIcons()
+    {
+        foreach (self::$defaultIconSets as $defaultIconSet) {
+            $alreadyRegistered = array_search($defaultIconSet, array_column(self::$defaultIcons, 'value'));
+            $key = array_search($defaultIconSet, array_column(self::$supportedSets, 'value'));
+            if ($alreadyRegistered === false && $key !== false) {
+                $set = self::$supportedSets[$key];
+                self::registerGlobalIconSet($set['value'], $set['label'],
+                    __DIR__ . '/' . $set['path']);
+            }
+
+        }
     }
 
     public function disableEditor()

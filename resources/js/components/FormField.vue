@@ -125,7 +125,6 @@
 
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
-import { icons } from '../icons';
 
 export default {
   mixins: [FormField, HandlesValidationErrors],
@@ -133,7 +132,7 @@ export default {
   props: ['resourceName', 'resourceId', 'field'],
   data() {
     return {
-      defaultIcons: icons,
+      defaultIcons: [],
       modalOpened: false,
       editorOpened: false,
       value: '',
