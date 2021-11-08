@@ -11,6 +11,9 @@ class Heroicon extends Field
     protected static array $defaultIcons = [
         ['value' => 'solid', 'label' => 'Solid'],
         ['value' => 'outline', 'label' => 'Outline'],
+        ['value' => 'fa-brands', 'label' => 'Fontawesome brands'],
+        ['value' => 'fa-regular', 'label' => 'Fontawesome regular'],
+        ['value' => 'fa-solid', 'label' => 'Fontawesome solid'],
     ];
 
     protected static array $defaultIconSets = ['solid', 'outline'];

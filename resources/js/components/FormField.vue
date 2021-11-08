@@ -113,7 +113,7 @@
                 style="outline: 1px solid #e0e0e0; outline-offset: -0.5rem"
                 @click="saveIcon(icon)"
               >
-                <div v-html="icon.content" class="w-12 h-12"></div>
+                <div v-html="icon.content" class="w-12 h-12 icon-container"></div>
                 <div>{{ icon.name }}</div>
               </div>
             </div>
@@ -229,10 +229,15 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .icon-preview svg {
   width: 60px;
   height: 60px;
+}
+
+.icon-container > svg {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .icon-preview:hover .close-icon {
