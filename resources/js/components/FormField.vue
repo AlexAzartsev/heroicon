@@ -229,7 +229,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 .icon-preview svg {
   width: 60px;
   height: 60px;
