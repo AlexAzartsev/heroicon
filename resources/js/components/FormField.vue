@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="px-8 py-6 heroicon-inner">
-            <div class="flex flex-wrap items-stretch -mx-2">
+            <div class="flex flex-wrap items-baseline -mx-2 grid-container">
               <div
                 v-for="icon in filteredIcons"
                 :key="`${icon.type}_${icon.name}`"
@@ -298,5 +298,9 @@ export default {
   right: 1.5rem;
   font-size: 1.5rem;
   color: #3c4b5f;
+}
+
+.grid-container > div {
+  flex-basis: 10%;
 }
 </style>
