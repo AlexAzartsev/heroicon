@@ -100,7 +100,7 @@
                 v-for="icon in filteredIcons"
                 :key="`${icon.type}_${icon.name}`"
                 class="
-                  flex flex-col
+                  flex flex-col flex-1
                   items-center
                   justify-center
                   text-center
@@ -110,7 +110,6 @@
                   mb-4
                   min-h-90px
                 "
-                style="outline: 1px solid #e0e0e0; outline-offset: -0.5rem"
                 @click="saveIcon(icon)"
               >
                 <div v-html="icon.content" class="w-12 h-12 icon-container"></div>
@@ -238,6 +237,7 @@ export default {
 .icon-container > svg {
   max-height: 100%;
   max-width: 100%;
+  padding-bottom: 10px;
 }
 
 .icon-preview:hover .close-icon {
