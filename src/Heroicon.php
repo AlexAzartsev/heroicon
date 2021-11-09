@@ -10,32 +10,32 @@ class Heroicon extends Field
     public array $icons = [];
 
     protected static array $supportedSets = [
-        ['value' => 'solid', 'label' => 'Heroicons Solid', 'path' => __DIR__ . '/../resources/icons/heroicons/solid'],
+        ['value' => 'solid', 'label' => 'Heroicons solid', 'path' => __DIR__ . '/../resources/icons/heroicons/solid'],
         [
             'value' => 'outline',
-            'label' => 'Heroicons Outline',
+            'label' => 'Heroicons outline',
             'path'  => __DIR__ . '/../resources/icons/heroicons/outline'
         ],
         [
             'value' => 'fa-brands',
-            'label' => 'Fontawesome brands',
+            'label' => 'Font Awesome brands',
             'path'  => __DIR__ . '/../resources/icons/fa/free/brands'
         ],
         [
             'value' => 'fa-regular',
-            'label' => 'Fontawesome regular',
+            'label' => 'Font Awesome regular',
             'path'  => __DIR__ . '/../resources/icons/fa/free/regular'
         ],
         [
             'value' => 'fa-solid',
-            'label' => 'Fontawesome solid',
+            'label' => 'Font Awesome solid',
             'path'  => __DIR__ . '/../resources/icons/fa/free/solid'
         ],
     ];
 
     protected static array $defaultIcons = [];
 
-    protected static array $defaultIconSets = ['solid', 'outline'];
+    protected static array $defaultIconSets = ['solid', 'outline', 'fa-brands', 'fa-regular', 'fa-solid'];
     protected static bool $defaultEditorEnabled = true;
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
