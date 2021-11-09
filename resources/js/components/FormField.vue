@@ -95,12 +95,12 @@
             </div>
           </div>
           <div class="px-8 py-6 heroicon-inner">
-            <div class="flex flex-wrap items-stretch -mx-2">
+            <div class="flex flex-wrap items-baseline -mx-2 grid-container">
               <div
                 v-for="icon in filteredIcons"
                 :key="`${icon.type}_${icon.name}`"
                 class="
-                  flex flex-col
+                  flex flex-col flex-1
                   items-center
                   justify-center
                   text-center
@@ -110,10 +110,9 @@
                   mb-4
                   min-h-90px
                 "
-                style="outline: 1px solid #e0e0e0; outline-offset: -0.5rem"
                 @click="saveIcon(icon)"
               >
-                <div v-html="icon.content" class="w-12 h-12"></div>
+                <div v-html="icon.content" class="w-12 h-12 icon-container"></div>
                 <div>{{ icon.name }}</div>
               </div>
             </div>
@@ -126,7 +125,6 @@
 
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
-import { icons } from '../icons';
 
 export default {
   mixins: [FormField, HandlesValidationErrors],
@@ -134,7 +132,7 @@ export default {
   props: ['resourceName', 'resourceId', 'field'],
   data() {
     return {
-      defaultIcons: icons,
+      defaultIcons: [],
       modalOpened: false,
       editorOpened: false,
       value: '',
@@ -235,6 +233,12 @@ export default {
   height: 60px;
 }
 
+.icon-container > svg {
+  max-height: 100%;
+  max-width: 100%;
+  padding-bottom: 10px;
+}
+
 .icon-preview:hover .close-icon {
   visibility: visible;
 }
@@ -293,5 +297,9 @@ export default {
   right: 1.5rem;
   font-size: 1.5rem;
   color: #3c4b5f;
+}
+
+.grid-container > div {
+  flex-basis: 10%;
 }
 </style>

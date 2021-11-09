@@ -8,21 +8,59 @@ class Heroicon extends Field
 {
     public $component = 'heroicon';
     public array $icons = [];
-    protected static array $defaultIcons = [
-        ['value' => 'solid', 'label' => 'Solid'],
-        ['value' => 'outline', 'label' => 'Outline'],
+
+    protected static array $supportedSets = [
+        ['value' => 'solid', 'label' => 'Heroicons solid', 'path' => __DIR__ . '/../resources/icons/heroicons/solid'],
+        [
+            'value' => 'outline',
+            'label' => 'Heroicons outline',
+            'path'  => __DIR__ . '/../resources/icons/heroicons/outline'
+        ],
+        [
+            'value' => 'fa-brands',
+            'label' => 'Font Awesome brands',
+            'path'  => __DIR__ . '/../resources/icons/fa/free/brands'
+        ],
+        [
+            'value' => 'fa-regular',
+            'label' => 'Font Awesome regular',
+            'path'  => __DIR__ . '/../resources/icons/fa/free/regular'
+        ],
+        [
+            'value' => 'fa-solid',
+            'label' => 'Font Awesome solid',
+            'path'  => __DIR__ . '/../resources/icons/fa/free/solid'
+        ],
     ];
 
-    protected static array $defaultIconSets = ['solid', 'outline'];
+    protected static array $defaultIcons = [];
+
+    protected static array $defaultIconSets = ['solid', 'outline', 'fa-brands', 'fa-regular', 'fa-solid'];
     protected static bool $defaultEditorEnabled = true;
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
+        $this->registerDefaultIcons();
         $this->icons = self::$defaultIcons;
         $this->withMeta(['editor' => self::$defaultEditorEnabled]);
         $this->only(self::$defaultIconSets);
+    }
 
+    public function registerDefaultIcons()
+    {
+        foreach (self::$defaultIconSets as $defaultIconSet) {
+            $alreadyRegistered = array_search($defaultIconSet, array_column(self::$defaultIcons, 'value'));
+            $key = array_search($defaultIconSet, array_column(self::$supportedSets, 'value'));
+            if ($alreadyRegistered === false && $key !== false) {
+                $set = self::$supportedSets[$key];
+                self::registerGlobalIconSet(
+                    $set['value'],
+                    $set['label'],
+                    $set['path']
+                );
+            }
+        }
     }
 
     public function disableEditor()
@@ -38,12 +76,26 @@ class Heroicon extends Field
     public function onlySolid()
     {
         return $this->only(['solid']);
-
     }
 
     public function onlyOutline()
     {
         return $this->only(['outline']);
+    }
+
+    public function onlyFaBrands()
+    {
+        return $this->only(['fa-brands']);
+    }
+
+    public function onlyFaSolid()
+    {
+        return $this->only(['fa-solid']);
+    }
+
+    public function onlyFaRegular()
+    {
+        return $this->only(['fa-regular']);
     }
 
     public function registerIconSet(string $key, string $label, string $path)
@@ -85,29 +137,39 @@ class Heroicon extends Field
         $files = scandir($path);
         foreach ($files as $file) {
             if (preg_match("/.*\.svg/i", $file)) {
+                $content = file_get_contents("$path/$file");
+                $content = preg_replace('/<!--(.*?)-->/m', '', $content);
                 $icons[] = [
                     'type'    => $key,
                     'name'    => strtolower(str_replace('.svg', '', $file)),
-                    'content' => file_get_contents("$path/$file"),
+                    'content' => $content,
                 ];
             }
         }
 
         return $icons;
-
     }
 
     public function only(array $sets)
     {
-        $icons = $this->icons;
         $filteredIcons = [];
         foreach ($sets as $set) {
-            foreach ($icons as $icon) {
+            $suportedSetKey = array_search($set, array_column(self::$supportedSets, 'value'));
+            if (array_search($set, array_column($this->icons, 'value')) === false && $suportedSetKey !== false) {
+                $supportedSet = self::$supportedSets[$suportedSetKey];
+                $this->registerIconSet(
+                    $supportedSet['value'],
+                    $supportedSet['label'],
+                    $supportedSet['path']
+                );
+            }
+            foreach ($this->icons as $icon) {
                 if ($icon['value'] === $set) {
                     $filteredIcons[] = $icon;
                 }
             }
         }
+
 
         return $this->withMeta([
             'icons' => $filteredIcons
