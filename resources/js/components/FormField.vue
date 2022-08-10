@@ -1,81 +1,81 @@
 <template>
-  <default-field :field="field" :errors="errors" :show-help-text="showHelpText">
-    <template slot="field">
+  <DefaultField :field="field" :errors="errors" :show-help-text="showHelpText">
+    <template #field >
       <div class="flex flex-row">
         <div v-if="value" class="icon-preview mb-4">
           <span class="relative inline-block p-8 border border-gray-300 rounded-md">
             <span v-html="value"> </span>
             <span class="close-icon absolute top-0 right-0 cursor-pointer invisible" @click="clear">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </span>
           </span>
         </div>
         <div class="flex justify-center items-center">
-          <button class="btn btn-default btn-primary mb-3 ml-3" @click.prevent="toggleModal">
+          <DefaultButton class="ml-2" @click.prevent="toggleModal">
             {{ openModalText }}
-          </button>
-          <button
-            v-if="field.editor"
-            class="btn btn-default btn-primary mb-3 ml-3"
-            @click.prevent="toggleEditor"
+          </DefaultButton>
+          <DefaultButton
+              class="ml-2"
+              v-if="field.editor"
+              @click.prevent="toggleEditor"
           >
             {{ editButtonText }}
-          </button>
+          </DefaultButton>
         </div>
       </div>
       <transition name="fade">
         <textarea
-          v-show="editorOpened"
-          :id="field.name"
-          type="text"
-          class="w-full form-control form-input form-input-bordered h-36"
-          :class="errorClasses"
-          :placeholder="field.name"
-          v-model="value"
+            v-show="editorOpened"
+            :id="field.name"
+            type="text"
+            class="w-full form-control form-input form-input-bordered h-36"
+            :class="errorClasses"
+            :placeholder="field.name"
+            v-model="value"
         />
       </transition>
 
-      <modal v-if="modalOpened" @close="closeModal" class="heroicon-modal">
+      <Modal :show="modalOpened" @closing="closeModal" class="heroicon-modal">
         <div class="bg-white rounded-lg shadow-lg">
           <div class="px-8 py-6 border-b relative" style="border-color: #e0e0e0">
             <heading :level="2" class="mb-0 px-10">{{ __('Select Icon') }}</heading>
             <a href="#" class="heroicon-close" @click.prevent="closeModal">
               <svg
-                class="w-10 h-10"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                  class="w-10 h-10"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </a>
           </div>
-          <div class="px-8 py-4 border-b">
+          <div class="px-8 py-4 border-b heroicon-controls">
             <div class="flex flex-wrap -mx-4">
               <div class="w-1/3 px-4">
                 <select
-                  id="type"
-                  class="w-full form-control form-select"
-                  v-model="filter.type"
-                  :disabled="disableOptions"
+                    id="type"
+                    class="w-full form-control form-select"
+                    v-model="filter.type"
+                    :disabled="disableOptions"
                 >
                   <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
                     {{ opt.label }}
@@ -84,12 +84,12 @@
               </div>
               <div class="w-2/3 px-4">
                 <input
-                  type="text"
-                  id="search"
-                  class="w-full form-control form-input form-input-bordered"
-                  placeholder="Search icons"
-                  v-model="filter.search"
-                  @keypress.enter.prevent
+                    type="text"
+                    id="search"
+                    class="w-full form-control form-input form-input-bordered"
+                    placeholder="Search icons"
+                    v-model="filter.search"
+                    @keypress.enter.prevent
                 />
               </div>
             </div>
@@ -97,9 +97,9 @@
           <div class="px-8 py-6 heroicon-inner">
             <div class="flex flex-wrap items-baseline -mx-2 grid-container">
               <div
-                v-for="icon in filteredIcons"
-                :key="`${icon.type}_${icon.name}`"
-                class="
+                  v-for="icon in filteredIcons"
+                  :key="`${icon.type}_${icon.name}`"
+                  class="
                   flex flex-col flex-1
                   items-center
                   justify-center
@@ -110,7 +110,7 @@
                   mb-4
                   min-h-90px
                 "
-                @click="saveIcon(icon)"
+                  @click="saveIcon(icon)"
               >
                 <div v-html="icon.content" class="w-12 h-12 icon-container"></div>
                 <div>{{ icon.name }}</div>
@@ -118,9 +118,9 @@
             </div>
           </div>
         </div>
-      </modal>
+      </Modal>
     </template>
-  </default-field>
+  </DefaultField>
 </template>
 
 <script>
@@ -224,7 +224,7 @@ export default {
   },
   beforeUnmount() {
     document.removeEventListener('keydown', this.escapeHandler);
-  }
+  },
 };
 </script>
 <style>
@@ -258,34 +258,16 @@ export default {
   height: 30px;
 }
 
-.heroicon-modal > div:first-child {
-  flex-basis: 0;
-  height: 100%;
-  flex-direction: column;
-}
-
-.heroicon-modal > div:first-child > div {
-  position: relative;
-  max-height: 80%;
+.heroicon-modal {
+  max-width: 80%;
   overflow: hidden;
-  width: 60%;
-  margin: 0 auto;
-  display: flex;
-  flex-grow: 1;
 }
-
-.heroicon-modal > div:first-child > div > div {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.heroicon-modal > div {
+  overflow: hidden;
 }
 
 .heroicon-inner {
-  height: 80%;
+  height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -299,7 +281,7 @@ export default {
   color: #3c4b5f;
 }
 
-.grid-container > div {
-  flex-basis: 10%;
+.heroicon-controls {
+
 }
 </style>
