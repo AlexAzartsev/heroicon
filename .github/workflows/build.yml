@@ -13,7 +13,5 @@ jobs:
         run: npm install
       - name: Run ESLint
         run: ./node_modules/.bin/eslint . --ext .js,.vue
-      - name: Test build icons script
-        run: npm run icons
       - name: Build dist
         run: npm run prod
