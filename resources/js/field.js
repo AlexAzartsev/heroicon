@@ -1,6 +1,10 @@
-/* eslint-disable global-require */
-Nova.booting((Vue) => {
-  Vue.component('index-heroicon', require('./components/IndexField.vue'));
-  Vue.component('detail-heroicon', require('./components/DetailField.vue'));
-  Vue.component('form-heroicon', require('./components/FormField.vue'));
+import IndexField from "./components/IndexField.vue"
+import DetailField from "./components/DetailField.vue"
+import FormField from "./components/FormField.vue"
+
+
+Nova.booting((app, store) => {
+  app.component('index-heroicon', IndexField);
+  app.component('detail-heroicon', DetailField);
+  app.component('form-heroicon', FormField);
 });

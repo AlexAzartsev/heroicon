@@ -1,3 +1,9 @@
 const mix = require('laravel-mix');
 
-mix.setPublicPath('dist').js('resources/js/field.js', 'js');
+require('./nova.mix');
+
+mix
+  .setPublicPath('dist')
+  .js('resources/js/field.js', 'js')
+  .vue({ version: 3 })
+  .nova('AlexAzartsev/HeroIcon');
