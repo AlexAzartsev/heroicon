@@ -48,7 +48,9 @@
       </transition>
 
       <Modal :show="modalOpened" @closing="closeModal" class="heroicon-modal">
-        <div class="rounded-lg shadow-lg text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 ">
+        <div class="rounded-lg shadow-lg text-gray-500
+         dark:text-gray-400 bg-gray-100 dark:bg-gray-900 "
+        >
           <div class="px-8 py-6 border-b relative">
             <heading :level="2" class="mb-0 px-10">{{ __('Select Icon') }}</heading>
             <a href="#" class="heroicon-close" @click.prevent="closeModal">
@@ -74,7 +76,8 @@
                 <div class="flex relative">
                   <select
                       id="type"
-                      class="w-full form-control form-select form-select-bordered heroicons-sets-select"
+                      class="w-full form-control form-select
+                      form-select-bordered heroicons-sets-select"
                       v-model="filter.type"
                       :disabled="disableOptions"
                   >
@@ -127,6 +130,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-unresolved
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
 export default {
