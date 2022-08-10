@@ -22,6 +22,8 @@
     "@inertiajs/inertia": "^0.11.0",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-vue": "^9.3.0",
     "form-backend-validation": "^2.4.0",
     "laravel-mix": "^6.0.41",
     "vue-advanced-cropper": "^2.8.3",

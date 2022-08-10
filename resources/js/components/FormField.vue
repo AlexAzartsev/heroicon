@@ -167,6 +167,11 @@ export default {
       this.filter.search = '';
       this.closeModal();
     },
+    escapeHandler(e) {
+      if (e.key === 'Escape' && this.modalOpened) {
+        this.closeModal();
+      }
+    };
   },
   computed: {
     icons() {
@@ -214,17 +219,12 @@ export default {
     },
   },
   created() {
-    const escapeHandler = (e) => {
-      if (e.key === 'Escape' && this.modalOpened) {
-        this.closeModal();
-      }
-    };
-    document.addEventListener('keydown', escapeHandler);
-    this.$once('hook:destroyed', () => {
-      document.removeEventListener('keydown', escapeHandler);
-    });
+    document.addEventListener('keydown', this.escapeHandler);
     this.filter.type = this.iconOptions[0].value;
   },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.escapeHandler);
+  }
 };
 </script>
 <style>
