@@ -2404,6 +2404,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.filter.type = '';
       this.filter.search = '';
       this.closeModal();
+    },
+    escapeHandler: function escapeHandler(e) {
+      if (e.key === 'Escape' && this.modalOpened) {
+        this.closeModal();
+      }
     }
   },
   computed: {
@@ -2469,19 +2474,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {
-    var _this2 = this;
-
-    var escapeHandler = function escapeHandler(e) {
-      if (e.key === 'Escape' && _this2.modalOpened) {
-        _this2.closeModal();
-      }
-    };
-
-    document.addEventListener('keydown', escapeHandler);
-    this.$once('hook:destroyed', function () {
-      document.removeEventListener('keydown', escapeHandler);
-    });
+    document.addEventListener('keydown', this.escapeHandler);
     this.filter.type = this.iconOptions[0].value;
+  },
+  beforeUnmount: function beforeUnmount() {
+    document.removeEventListener('keydown', this.escapeHandler);
   }
 });
 

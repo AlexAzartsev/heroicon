@@ -171,7 +171,7 @@ export default {
       if (e.key === 'Escape' && this.modalOpened) {
         this.closeModal();
       }
-    };
+    },
   },
   computed: {
     icons() {
