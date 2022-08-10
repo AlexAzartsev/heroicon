@@ -1,12 +1,14 @@
 <template>
-  <panel-item :field="field">
-    <span slot="value" class="heroicon-index" v-html="field.value"> </span>
-  </panel-item>
+  <PanelItem :field="field" :index="index" >
+    <template #value>
+      <span class="heroicon-index" v-html="field.value"> </span>
+    </template>
+  </PanelItem>
 </template>
 
 <script>
 export default {
-  props: ['resource', 'resourceName', 'resourceId', 'field'],
+  props: ['index', 'resource', 'resourceName', 'resourceId', 'field'],
 };
 </script>
 <style>
