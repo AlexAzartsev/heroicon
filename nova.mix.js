@@ -1,8 +1,8 @@
 const mix = require('laravel-mix');
-const webpack = require('webpack');
 const path = require('path');
 
 class NovaExtension {
+  // eslint-disable-next-line class-methods-use-this
   name() {
     return 'nova-extension';
   }
