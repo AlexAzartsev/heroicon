@@ -40,7 +40,7 @@
             v-show="editorOpened"
             :id="field.name"
             type="text"
-            class="w-full form-control form-input form-input-bordered h-36"
+            class="w-full form-control form-input form-input-bordered h-36 mt-2 heroicon-textarea"
             :class="errorClasses"
             :placeholder="field.name"
             v-model="value"
@@ -48,8 +48,8 @@
       </transition>
 
       <Modal :show="modalOpened" @closing="closeModal" class="heroicon-modal">
-        <div class="bg-white rounded-lg shadow-lg">
-          <div class="px-8 py-6 border-b relative" style="border-color: #e0e0e0">
+        <div class="rounded-lg shadow-lg text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 ">
+          <div class="px-8 py-6 border-b relative">
             <heading :level="2" class="mb-0 px-10">{{ __('Select Icon') }}</heading>
             <a href="#" class="heroicon-close" @click.prevent="closeModal">
               <svg
@@ -70,23 +70,26 @@
           </div>
           <div class="px-8 py-4 border-b heroicon-controls">
             <div class="flex flex-wrap -mx-4">
-              <div class="w-1/3 px-4">
-                <select
-                    id="type"
-                    class="w-full form-control form-select"
-                    v-model="filter.type"
-                    :disabled="disableOptions"
-                >
-                  <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
-                    {{ opt.label }}
-                  </option>
-                </select>
+              <div class="px-4" style="width: 33%">
+                <div class="flex relative">
+                  <select
+                      id="type"
+                      class="w-full form-control form-select form-select-bordered heroicons-sets-select"
+                      v-model="filter.type"
+                      :disabled="disableOptions"
+                  >
+                    <option v-for="opt in iconOptions" :value="opt.value" :key="opt.value">
+                      {{ opt.label }}
+                    </option>
+                  </select>
+                  <IconArrow class="pointer-events-none form-select-arrow" />
+                </div>
               </div>
-              <div class="w-2/3 px-4">
+              <div class="px-4" style="width: 66%">
                 <input
                     type="text"
                     id="search"
-                    class="w-full form-control form-input form-input-bordered"
+                    class="w-full form-control form-input form-input-bordered heroicons-input"
                     placeholder="Search icons"
                     v-model="filter.search"
                     @keypress.enter.prevent
@@ -262,6 +265,10 @@ export default {
   max-width: 80%;
   overflow: hidden;
 }
+.dark .heroicon-modal {
+  border-width: 2px;
+  border-radius: 5px;
+}
 .heroicon-modal > div {
   overflow: hidden;
 }
@@ -281,7 +288,18 @@ export default {
   color: #3c4b5f;
 }
 
-.heroicon-controls {
+.heroicons-sets-select,
+.heroicons-input {
+  border-color: var(--colors-gray-200);
+  color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+}
+.dark .heroicons-sets-select,
+.dark .heroicons-input {
+  border-color: var(--colors-gray-200);
+  color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+}
 
+.heroicon-textarea {
+  min-height: 110px;
 }
 </style>
