@@ -16,6 +16,6 @@ jobs:
       - name: Install modules
         run: npm install
       - name: Run ESLint
-        run: ./node_modules/.bin/eslint . --ext .js,.vue resources/
+        run: ./node_modules/.bin/eslint --ext .js,.vue resources/
       - name: Build dist
         run: npm run prod
