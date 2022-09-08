@@ -22,8 +22,8 @@ jobs:
 
       - name: Compile Asset
         run: |
-          yarn install
-          yarn run production
+          npm ci
+          npm run production
         env:
           TAILWIND_MODE: build
 
