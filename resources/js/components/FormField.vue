@@ -205,15 +205,15 @@ export default {
     },
     editButtonText() {
       if (this.editorOpened) {
-        return 'Close';
+        return this.__('Close');
       }
-      return 'Edit';
+      return this.__('Edit');
     },
     openModalText() {
       if (this.value) {
-        return 'Change icon';
+        return this.__('Change icon');
       }
-      return 'Add icon';
+      return this.__('Add icon');
     },
     iconOptions() {
       if (this.field.icons.length > 1) {
