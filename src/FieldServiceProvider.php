@@ -13,11 +13,15 @@ class FieldServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Nova::serving(function (ServingNova $event) {
             Nova::script('heroicon', __DIR__.'/../dist/js/field.js');
         });
+
+        $this->publishes([
+            __DIR__.'/../config/nova-icon.php' => config_path('nova-icon.php'),
+        ]);
     }
 
     /**
@@ -25,7 +29,7 @@ class FieldServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

@@ -93,7 +93,7 @@
                     type="text"
                     id="search"
                     class="w-full form-control form-input form-input-bordered heroicons-input"
-                    placeholder="Search icons"
+                    :placeholder="__('Search icons')"
                     v-model="filter.search"
                     @keypress.enter.prevent
                 />
@@ -111,15 +111,13 @@
                   justify-center
                   text-center
                   px-2
-                  w-1/6
                   cursor-pointer
                   mb-4
-                  min-h-90px
                 "
                   @click="saveIcon(icon)"
               >
                 <div v-html="icon.content" class="w-12 h-12 icon-container"></div>
-                <div>{{ icon.name }}</div>
+                <div class="whitespace-nowrap text-xs">{{ icon.name }}</div>
               </div>
             </div>
           </div>
@@ -216,9 +214,9 @@ export default {
       return this.__('Add icon');
     },
     iconOptions() {
-      if (this.field.icons.length > 1) {
-        return [{ value: '', label: 'All' }, ...this.field.icons];
-      }
+      // if (this.field.icons.length > 1) {
+      //   return [{ value: '', label: 'All' }, ...this.field.icons];
+      // }
       return this.field.icons;
     },
     disableOptions() {
@@ -236,74 +234,75 @@ export default {
 </script>
 <style>
 .icon-preview svg {
-  width: 60px;
-  height: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 .icon-container > svg {
-  max-height: 100%;
-  max-width: 100%;
-  padding-bottom: 10px;
+    max-height: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+    fill: currentColor;
 }
 
 .icon-preview:hover .close-icon {
-  visibility: visible;
+    visibility: visible;
 }
 
 .close-icon {
-  transform: translate(50%, -50%);
-  opacity: 0.75;
-  transition: visibility 0.4s linear;
+    transform: translate(50%, -50%);
+    opacity: 0.75;
+    transition: visibility 0.4s linear;
 }
 
 .close-icon:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 .close-icon svg {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 
 .heroicon-modal {
-  max-width: 80%;
-  overflow: hidden;
+    max-width: 80%;
+    overflow: hidden;
 }
 .dark .heroicon-modal {
-  border-width: 2px;
-  border-radius: 5px;
+    border-width: 2px;
+    border-radius: 5px;
 }
 .heroicon-modal > div {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .heroicon-inner {
-  height: 60vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .heroicon-close {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 1.5rem;
-  font-size: 1.5rem;
-  color: #3c4b5f;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: #3c4b5f;
 }
 
 .heroicons-sets-select,
 .heroicons-input {
-  border-color: var(--colors-gray-200);
-  color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    border-color: var(--colors-gray-200);
+    color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
 }
 .dark .heroicons-sets-select,
 .dark .heroicons-input {
-  border-color: var(--colors-gray-200);
-  color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
+    border-color: var(--colors-gray-200);
+    color: rgba(var(--colors-gray-400), var(--tw-text-opacity));
 }
 
 .heroicon-textarea {
-  min-height: 110px;
+    min-height: 110px;
 }
 </style>
