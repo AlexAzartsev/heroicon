@@ -1,3 +1,38 @@
+# Fork
+
+* Completed translations
+* Add configuration
+* Remove non performant `all icons` selection
+
+### `composer.json`
+
+```json
+    "repositories": [
+        {
+        "type": "vcs",
+        "url": "https://github.com/Muetze42/nova-icon"
+        }
+    ],
+```
+
+### config:
+
+`php artisan vendor:publish --provider="AlexAzartsev\Heroicon\FieldServiceProvider"`
+
+### Nova translations
+
+```json
+{
+    "Close": "Close",
+    "Edit": "Edit",
+    "Change icon": "Change icon",
+    "Add icon": "Add icon",
+    "Select Icon": "Select Icon",
+    "Search icons": "Search icons"
+}
+```
+
+---
 # Heroicon Nova Field
 
 A Laravel Nova Field for managing icons. [Heroicons](https://heroicons.com/) and free [Font Awesome](https://fontawesome.com/) supported out of the box,
@@ -22,9 +57,9 @@ composer require alexazartsev/heroicon
 Use it as regular nova field:
 
 ```php
-use AlexAzartsev\Heroicon\Heroicon;
+use AlexAzartsev\Heroicon\Icon;
 
-Heroicon::make('Icon');
+Icon::make('Icon');
 ```
 ### Default icon sets available:
 
@@ -53,7 +88,7 @@ Field can be configured globally in `NovaServiceProvider`:
 ```php
 namespace App\Providers;
 
-use AlexAzartsev\Heroicon\Heroicon;
+use AlexAzartsev\Heroicon\Icon;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -65,12 +100,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         // to register set of icons globally, just specify folder with svg icons like this:
         // (icons should be located directly in specified folder in .svg format)
         // 'custom' icon set will be available for every Heroicon in your app
-        Heroicon::registerGlobalIconSet('custom', 'Custom Icons', resource_path('img/icons'));
+        Icon::registerGlobalIconSet('custom', 'Custom Icons', resource_path('img/icons'));
         // to pick default icon sets that will be available on field all over app use this:
         // default sets available: 'solid', 'outline', 'fa-brands', 'fa-regular', 'fa-solid'
-        Heroicon::defaultIconSets(['solid', 'fa-brands', 'custom']);
+        Icon::defaultIconSets(['solid', 'fa-brands', 'custom']);
         // to make svg editor disabled by default for every field use this:
-        Heroicon::defaultEditorEnable(false);
+        Icon::defaultEditorEnable(false);
 
     }
 ```
@@ -80,32 +115,32 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 To disable or enable svg editor of the icon:
 
 ```php
-use AlexAzartsev\Heroicon\Heroicon;
+use AlexAzartsev\Heroicon\Icon;
 
-Heroicon::make('Icon')->disableEditor();
-Heroicon::make('Icon')->enableEditor();
+Icon::make('Icon')->disableEditor();
+Icon::make('Icon')->enableEditor();
 ```
 
 To register custom set of icons (icons should be located directly in specified folder in .svg format):
 
 ```php
-use AlexAzartsev\Heroicon\Heroicon;
+use AlexAzartsev\Heroicon\Icon;
 
-Heroicon::make('Icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'));
+Icon::make('Icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'));
 ```
 
 To allow certain sets of icons:
 
 ```php
-use AlexAzartsev\Heroicon\Heroicon;
+use AlexAzartsev\Heroicon\Icon;
 
-Heroicon::make('Icon')->only(['custom', 'solid']);
+Icon::make('Icon')->only(['custom', 'solid']);
 //for default sets you can use these methods:
-Heroicon::make('Icon')->onlySolid();
-Heroicon::make('Icon')->onlyOutline();
-Heroicon::make('Icon')->onlyFaBrands();
-Heroicon::make('Icon')->onlyFaSolid();
-Heroicon::make('Icon')->onlyFaRegular();
+Icon::make('Icon')->onlySolid();
+Icon::make('Icon')->onlyOutline();
+Icon::make('Icon')->onlyFaBrands();
+Icon::make('Icon')->onlyFaSolid();
+Icon::make('Icon')->onlyFaRegular();
 ```
 
 ## Support:

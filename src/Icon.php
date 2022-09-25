@@ -4,13 +4,17 @@ namespace AlexAzartsev\Heroicon;
 
 use Laravel\Nova\Fields\Field;
 
-class Heroicon extends Field
+class Icon extends Field
 {
     public $component = 'heroicon';
     public array $icons = [];
 
-    protected static array $supportedSets = [
-        ['value' => 'solid', 'label' => 'Heroicons solid', 'path' => __DIR__ . '/../resources/icons/heroicons/solid'],
+    protected static array $defaultSets = [
+        [
+            'value' => 'solid',
+            'label' => 'Heroicons solid',
+            'path' => __DIR__ . '/../resources/icons/heroicons/solid'
+        ],
         [
             'value' => 'outline',
             'label' => 'Heroicons outline',
@@ -35,7 +39,18 @@ class Heroicon extends Field
 
     protected static array $defaultIcons = [];
 
-    protected static array $defaultIconSets = ['solid', 'outline', 'fa-brands', 'fa-regular', 'fa-solid'];
+    protected static array $defaultIconSets = [
+        'solid',
+        'outline',
+        'fa-solid',
+        'fa-regular',
+        'fa-light',
+        'fa-thin',
+        'fa-sharp',
+        'fa-brands',
+        'fa-duotone',
+    ];
+
     protected static bool $defaultEditorEnabled = true;
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
@@ -49,11 +64,13 @@ class Heroicon extends Field
 
     public function registerDefaultIcons()
     {
+        $iconSets = config('nova-icon', self::$defaultSets);
+
         foreach (self::$defaultIconSets as $defaultIconSet) {
-            $alreadyRegistered = array_search($defaultIconSet, array_column(self::$defaultIcons, 'value'));
-            $key = array_search($defaultIconSet, array_column(self::$supportedSets, 'value'));
+            $alreadyRegistered = in_array($defaultIconSet, array_column(self::$defaultIcons, 'value'));
+            $key = array_search($defaultIconSet, array_column($iconSets, 'value'));
             if ($alreadyRegistered === false && $key !== false) {
-                $set = self::$supportedSets[$key];
+                $set = $iconSets[$key];
                 self::registerGlobalIconSet(
                     $set['value'],
                     $set['label'],
@@ -63,42 +80,42 @@ class Heroicon extends Field
         }
     }
 
-    public function disableEditor()
+    public function disableEditor(): Icon
     {
         return $this->withMeta(['editor' => false]);
     }
 
-    public function enableEditor()
+    public function enableEditor(): Icon
     {
         return $this->withMeta(['editor' => true]);
     }
 
-    public function onlySolid()
+    public function onlySolid(): Icon
     {
         return $this->only(['solid']);
     }
 
-    public function onlyOutline()
+    public function onlyOutline(): Icon
     {
         return $this->only(['outline']);
     }
 
-    public function onlyFaBrands()
+    public function onlyFaBrands(): Icon
     {
         return $this->only(['fa-brands']);
     }
 
-    public function onlyFaSolid()
+    public function onlyFaSolid(): Icon
     {
         return $this->only(['fa-solid']);
     }
 
-    public function onlyFaRegular()
+    public function onlyFaRegular(): Icon
     {
         return $this->only(['fa-regular']);
     }
 
-    public function registerIconSet(string $key, string $label, string $path)
+    public function registerIconSet(string $key, string $label, string $path): Icon
     {
         $this->icons[] = [
             'value' => $key,
@@ -150,13 +167,14 @@ class Heroicon extends Field
         return $icons;
     }
 
-    public function only(array $sets)
+    public function only(array $sets): Icon
     {
+        $iconSets = config('nova-icon', self::$defaultSets);
         $filteredIcons = [];
         foreach ($sets as $set) {
-            $suportedSetKey = array_search($set, array_column(self::$supportedSets, 'value'));
-            if (array_search($set, array_column($this->icons, 'value')) === false && $suportedSetKey !== false) {
-                $supportedSet = self::$supportedSets[$suportedSetKey];
+            $supportedSetKey = array_search($set, array_column($iconSets, 'value'));
+            if (!in_array($set, array_column($this->icons, 'value')) && $supportedSetKey !== false) {
+                $supportedSet = $iconSets[$supportedSetKey];
                 $this->registerIconSet(
                     $supportedSet['value'],
                     $supportedSet['label'],
