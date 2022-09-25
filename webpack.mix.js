@@ -3,7 +3,8 @@ const mix = require('laravel-mix');
 require('./nova.mix');
 
 mix
-  .setPublicPath('dist')
-  .js('resources/js/field.js', 'js')
-  .vue({ version: 3 })
-  .nova('AlexAzartsev/HeroIcon');
+    .setPublicPath('dist')
+    .js('resources/js/field.js', 'js')
+    .vue({ version: 3 })
+    .disableNotifications()
+    .nova('AlexAzartsev/HeroIcon');

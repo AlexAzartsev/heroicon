@@ -11,9 +11,9 @@ export default {
   props: ['index', 'resource', 'resourceName', 'resourceId', 'field'],
 };
 </script>
-<style>
-.heroicon-index svg {
-  width: 60px;
-  height: 60px;
-}
-</style>
+<!--<style scoped>-->
+<!--.heroicon-index svg {-->
+<!--  width: 60px;-->
+<!--  height: 60px;-->
+<!--}-->
+<!--</style>-->
