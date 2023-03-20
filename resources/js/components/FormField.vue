@@ -115,6 +115,8 @@
                   cursor-pointer
                   mb-4
                   min-h-90px
+                  hero-icon-card
+                  border
                 "
                   @click="saveIcon(icon)"
               >
@@ -305,5 +307,12 @@ export default {
 
 .heroicon-textarea {
   min-height: 110px;
+}
+
+.hero-icon-card {
+  min-width: 11rem;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
 }
 </style>
