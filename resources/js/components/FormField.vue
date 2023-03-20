@@ -115,7 +115,7 @@
                   cursor-pointer
                   mb-4
                   min-h-90px
-                  customIconCard
+                  custom-icon-card
                   border
                 "
                   @click="saveIcon(icon)"
@@ -309,7 +309,7 @@ export default {
   min-height: 110px;
 }
 
-.customIconCard {
+.custom-icon-card {
   min-width: 11rem;
   margin: 1rem;
   padding: 1rem;
