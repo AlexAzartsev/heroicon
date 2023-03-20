@@ -116,6 +116,7 @@
                   mb-4
                   min-h-90px
                   customIconCard
+                  border
                 "
                   @click="saveIcon(icon)"
               >
@@ -310,7 +311,6 @@ export default {
 
 .customIconCard {
   min-width: 11rem;
-  border: 1px solid white;
   margin: 1rem;
   padding: 1rem;
   border-radius: 0.25rem;
