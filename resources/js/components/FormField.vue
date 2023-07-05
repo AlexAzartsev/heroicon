@@ -93,7 +93,7 @@
                     type="text"
                     id="search"
                     class="w-full form-control form-input form-input-bordered heroicons-input"
-                    placeholder="Search icons"
+                    placeholder="Cerca icone"
                     v-model="filter.search"
                     @keypress.enter.prevent
                 />
@@ -205,15 +205,15 @@ export default {
     },
     editButtonText() {
       if (this.editorOpened) {
-        return 'Close';
+        return 'Chiudi';
       }
-      return 'Edit';
+      return 'Modifica';
     },
     openModalText() {
       if (this.value) {
-        return 'Change icon';
+        return 'Cambia icona';
       }
-      return 'Add icon';
+      return 'Aggiungi icona';
     },
     iconOptions() {
       if (this.field.icons.length > 1) {
